@@ -1,0 +1,5 @@
+30/09/2024 15:00:21 Sell @ Nifty Bank option contract =NSE:Nifty Bank30-Oct-2453000PE@ 52996.9, tp1: 52986.9,tp2:52976.9
+30/09/2024 15:05:00 Buy @ Nifty Bank option contract =NSE:BANKNIFTY30-Oct-2452600CE, tp1: 52973.55,tp2:52983.55 
+30/09/2024 15:33:36 Buy @ Nifty Bank option contract =NSE:BANKNIFTY30-Oct-2452600CE, tp1: 52988.1,tp2:52998.1 
+30/09/2024 15:34:35 Buy @ Nifty Bank option contract =NSE:BANKNIFTY30-Oct-2452600CE, tp1: 52988.1,tp2:52998.1 
+30/09/2024 15:35:51 Buy @ Nifty Bank option contract =NSE:BANKNIFTY30-Oct-2452600CE, tp1: 52988.1,tp2:52998.1 

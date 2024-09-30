@@ -1,2 +1,2 @@
 Symbol,Quantity,Timeframe,TF_INT,EXPIERY,BASESYMBOL,EntryTime,ExitTime,strikestep,StrikeNumber,USEEXPIERY,TradeExpiery,AliceblueTradeExp,PRODUCT_TYPE,Target1,Target2,Tp1Qty,Segement,Fetchdelay
-Nifty Bank,15,THREE_MINUTE,3,31-Oct-24,BANKNIFTY,14:50,15:18,100,4,MONTHLY,31-Oct-24,31-Oct-24,I,10,20,10,NSE,TRUE
+Nifty Bank,15,THREE_MINUTE,3,30-Oct-24,BANKNIFTY,15:35,23:18,100,4,MONTHLY,30-Oct-24,30-Oct-24,I,10,20,10,NSE,TRUE
