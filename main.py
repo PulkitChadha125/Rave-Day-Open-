@@ -113,13 +113,13 @@ def get_user_settings():
             # Symbol,Quantity,Timeframe,TF_INT,EXPIERY,BASESYMBOL,EntryTime,ExitTime,strikestep,StrikeNumber,USEEXPIERY,TradeExpiery,AliceblueTradeExp,PRODUCT_TYPE,Target1,Target2,Tp1Qty,Segement,Fetchdelay
 
             symbol_dict = {
-                'Symbol': row['Symbol'],'Timeframe':row['Timeframe'],"Quantity":row['Quantity'],'EXPIERY': row['EXPIERY'], 'Votex_length':row['Votex_length'],
+                'Symbol': row['Symbol'],'Timeframe':row['Timeframe'],"Quantity":row['Quantity'],'EXPIERY': row['EXPIERY'],
                  "BASESYMBOL": row['BASESYMBOL'],'exch':None,'EntryTime': row['EntryTime'], "ExitTime": row['ExitTime'],
                 'strikestep': row['strikestep'], "StrikeNumber": row['StrikeNumber'],'USEEXPIERY': row['USEEXPIERY'], "TradeExpiery": row['TradeExpiery'],
                 'AliceblueTradeExp': row['AliceblueTradeExp'], "PRODUCT_TYPE": row['PRODUCT_TYPE'],"InitialOnce":None,
                 'FifteenHigh': None, "FifteenLow":None,"Bp":None,"Sp":None,"BUY":False,"SHORT":False,'Segement':row['Segement'],
                 'Previoustrade':None,"RevTrade":False,"aliceexp": None,'TimeBasedExit':None,"segemntfetch":None,
-                'Sp_Period':row['Sp_Period'],'Sp_Mul':row['Sp_Mul'],"runtime": datetime.now(),'TF_INT': row['TF_INT'],'UseSp': row['UseSp'],
+                "runtime": datetime.now(),'TF_INT': row['TF_INT'],
                 'secondlastcol':None,"DayopenOnce":False,"previousclose":None,"ltp":None,"DayOpenVal":None,
                 'putstrike': None, 'callstrike': None,'Initial':None,"Fetchdelay":row['Fetchdelay'],'Target1':row['Target1'],
                 'Target2':row['Target2'],'Tp1Qty':row['Tp1Qty'],'tp1val':None,'tp2':None,'remain':None,'tsl':None,'Ep':None,
@@ -158,7 +158,7 @@ pwd=credentials_dict.get('pin')
 totp_string=credentials_dict.get('totp_string')
 AngelIntegration.login(api_key=api_key,username=username,pwd=pwd,totp_string=totp_string)
 
-AngelIntegration.symbolmpping()
+# AngelIntegration.symbolmpping()
 
 
 def get_token(symbol):
@@ -615,4 +615,4 @@ def main_strategy():
 
 while True:
     main_strategy()
-    time.sleep(5)
+    time.sleep(1)
