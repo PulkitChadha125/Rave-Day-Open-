@@ -58,7 +58,7 @@ def get_ltp(segment,symbol,token):
     print(symbol)
     print(token)
     res=smartApi.ltpData(segment,symbol,token)
-    print("res: ",res)
+
     ltp_value = res['data']['ltp']
     return ltp_value
 
