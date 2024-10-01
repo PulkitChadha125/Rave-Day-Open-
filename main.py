@@ -462,17 +462,37 @@ def main_strategy():
                             write_to_order_logs(OrderLog)
 
                     if params['Initial'] == "SHORT":
-                        if  params['tsl'] is not None and params["ltp"] <= params['tsl'] and params['tp1done'] == True:
-                            params['tsl']=None
-                            params['Initial']=None
-                            OrderLog = f"{timestamp} Buy Exit tsl @ {symbol_value} @ {params['ltp']}, lots exited  {params['remain']}"
-                            print(OrderLog)
-                            write_to_order_logs(OrderLog)
-                            AliceBlueIntegration.NormalSellExit(producttype=params["producttype"],
-                                                                    exch=params['Segement'],
-                                                                    symbol=params['BASESYMBOL'],
-                                                                    quantity=params['remain'])
-                            params['remain'] = 0
+                        if params['Segement'] == "MCX":
+                            if  params['tsl'] is not None and params["ltp"] >= params['tsl'] and params['tp1done'] == True:
+                                params['tsl']=None
+                                params['tp2'] = None
+                                params['Initial']=None
+                                params['tp2donesell'] = True
+                                OrderLog = f"{timestamp} Sell Exit tsl @ {symbol_value} @ {params['ltp']}, lots exited  {params['remain']}"
+                                print(OrderLog)
+                                write_to_order_logs(OrderLog)
+                                AliceBlueIntegration.NormalSellExit(producttype=params["producttype"],
+                                                                        exch=params['Segement'],
+                                                                        symbol=params['BASESYMBOL'],
+                                                                        quantity=params['remain'])
+                                params['remain'] = 0
+
+                        if params['Segement'] == "NSE":
+                            if params['tsl'] is not None and params["ltp"] >= params['tsl'] and params[
+                                'tp1done'] == True:
+                                params['tp2'] = None
+                                params['tsl'] = None
+                                params['tp2donesell'] = True
+                                params['Initial'] = None
+                                AliceBlueIntegration.buyexit(quantity=params["remain"], exch=params['exch'],
+                                                             symbol=params['BASESYMBOL'],
+                                                             expiry_date=params['aliceexp'],
+                                                             strike=params["putstrike"], call=False,
+                                                             producttype=params["producttype"])
+                                OrderLog = f"{timestamp} Sell Exit tsl@ {symbol_value} contract ={params['BASESYMBOL']},strike={params['putstrike']}PE, lots exited  {params['remain']}"
+                                print(OrderLog)
+                                write_to_order_logs(OrderLog)
+                                params['remain'] = 0
 
                         if params['tp1val'] is not None and params["ltp"] <= params['tp1val'] :
                             if params['Segement'] == "MCX":
@@ -538,17 +558,36 @@ def main_strategy():
 
 
                     if params['Initial'] == "BUY":
-                        if  params['tsl'] is not None and params["ltp"] <= params['tsl'] and params['tp1done'] == True:
-                            params['tsl']=None
-                            params['Initial']=None
-                            OrderLog = f"{timestamp} Buy Exit TSL @ {symbol_value} @ {params['ltp']}, lots exited  {params['remain']} "
-                            print(OrderLog)
-                            write_to_order_logs(OrderLog)
-                            AliceBlueIntegration.NormalBuyExit(producttype=params["producttype"],
-                                                                   exch=params['Segement'],
-                                                                   symbol=params['BASESYMBOL'],
-                                                                   quantity=params['remain'])
-                            params['remain']=0
+                        if params['Segement'] == "MCX":
+                            if  params['tsl'] is not None and params["ltp"] <= params['tsl'] and params['tp1done'] == True:
+                                params['tsl']=None
+                                params['Initial']=None
+                                OrderLog = f"{timestamp} Buy Exit TSL @ {symbol_value} @ {params['ltp']}, lots exited  {params['remain']} "
+                                print(OrderLog)
+                                write_to_order_logs(OrderLog)
+                                AliceBlueIntegration.NormalBuyExit(producttype=params["producttype"],
+                                                                       exch=params['Segement'],
+                                                                       symbol=params['BASESYMBOL'],
+                                                                       quantity=params['remain'])
+                                params['remain']=0
+
+                            if params['Segement'] == "NSE":
+                                if params['tsl'] is not None and params["ltp"] <= params['tsl'] and params[
+                                    'tp1done'] == True:
+                                    params['tp2'] = None
+                                    params['tsl'] = None
+                                    params['Initial'] = None
+                                    params['tp2donebuy'] = True
+                                    AliceBlueIntegration.buyexit(quantity=params["remain"], exch=params['exch'],
+                                                                 symbol=params['BASESYMBOL'],
+                                                                 expiry_date=params['aliceexp'],
+                                                                 strike=params["callstrike"], call=True,
+                                                                 producttype=params["producttype"])
+
+                                    OrderLog = f"{timestamp} Buy Exit Tsl @ {symbol_value} , exit contract ={params['callstrike']} contract ={params['BASESYMBOL']},strike={params['callstrike']}CE, lots exited  {params['remain']}"
+                                    print(OrderLog)
+                                    write_to_order_logs(OrderLog)
+                                    params['remain'] = 0
 
                         if params['tp1val'] is not None and  params["ltp"] >= params['tp1val'] :
                             if params['Segement'] == "MCX":
