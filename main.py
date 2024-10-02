@@ -264,6 +264,7 @@ def main_strategy():
                                                                      determine_min(str(params["TF_INT"])))
                     print("Next datafetch time = ", next_specific_part_time)
                     params['runtime'] = next_specific_part_time
+
                 if current_time > EntryTime and current_time < ExitTime:
 
                     params["ltp"] = AngelIntegration.get_ltp(segment=params["segemntfetch"], symbol=params['Symbol'],
@@ -650,6 +651,56 @@ def main_strategy():
                                 write_to_order_logs(OrderLog)
                                 params['remain'] = 0
 
+
+                if current_time >= ExitTime :
+                    if params['Initial'] == "BUY":
+                        if params['Segement'] == "MCX":
+                            params['Initial'] = None
+
+                            OrderLog = f"{timestamp} Time based Buy Exit @ {symbol_value} "
+                            print(OrderLog)
+                            write_to_order_logs(OrderLog)
+                            AliceBlueIntegration.NormalBuyExit(producttype=params["producttype"],
+                                                                   exch=params['Segement'],
+                                                                   symbol=params['BASESYMBOL'],
+                                                                   quantity=params['remain'])
+
+                        if params['Segement'] == "NSE":
+                            params['Initial'] = None
+                            AliceBlueIntegration.buyexit(quantity=params["remain"], exch=params['exch'],
+                                                             symbol=params['BASESYMBOL'],
+                                                             expiry_date=params['aliceexp'],
+                                                             strike=params["callstrike"], call=True,
+                                                             producttype=params["producttype"])
+
+                            OrderLog = f"{timestamp} Time based Buy Exit @ {symbol_value} "
+                            print(OrderLog)
+                            write_to_order_logs(OrderLog)
+
+
+                    if params['Initial'] == "SHORT":
+
+                        if params['Segement'] == "MCX":
+                            params['Initial'] = None
+
+                            OrderLog = f"{timestamp} Time based Sell Exit @ {symbol_value} "
+                            print(OrderLog)
+                            write_to_order_logs(OrderLog)
+                            AliceBlueIntegration.NormalSellExit(producttype=params["producttype"],
+                                                                    exch=params['Segement'],
+                                                                    symbol=params['BASESYMBOL'],
+                                                                    quantity=params['remain'])
+
+                        if params['Segement'] == "NSE":
+                            params['Initial'] = None
+                            AliceBlueIntegration.buyexit(quantity=params["remain"], exch=params['exch'],
+                                                             symbol=params['BASESYMBOL'],
+                                                             expiry_date=params['aliceexp'],
+                                                             strike=params["putstrike"], call=False,
+                                                             producttype=params["producttype"])
+                            OrderLog = f"{timestamp} Time based Sell Exit @ {symbol_value} "
+                            print(OrderLog)
+                            write_to_order_logs(OrderLog)
     except Exception as e:
         print("Error in main strategy : ", str(e))
         traceback.print_exc()
